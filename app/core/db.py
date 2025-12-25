@@ -1,5 +1,7 @@
 # app/core/db.py
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from typing import AsyncGenerator
+
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
 DATABASE_URL = "postgresql+asyncpg://postgres:1234@localhost:5432/tododb"
@@ -20,6 +22,6 @@ async_session_factory = async_sessionmaker(  # pylint: disable=invalid-name
 )
 
 
-async def get_db() -> AsyncSession:
+async def get_db() -> AsyncGenerator:
     async with async_session_factory() as session:
         yield session
