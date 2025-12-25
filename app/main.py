@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from sqlalchemy import text
 
 from app.core.db import Base, async_session_factory, engine
+from app.model.todo import Todo  # noqa: F401  pylint: disable=unused-import
 
 
 @asynccontextmanager
@@ -17,7 +18,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
         await conn.run_sync(Base.metadata.create_all)
 
     # 초기 데이터 insert (async session 사용)
-    sql_file = pathlib.Path("app/data.sql")
+    sql_file = pathlib.Path("./data.sql")
     if sql_file.exists():
         sql_text = sql_file.read_text(encoding="utf-8")  # 인코딩 안쓰면 pylint 에러
 
