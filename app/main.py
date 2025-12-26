@@ -9,6 +9,7 @@ from sqlalchemy import text
 
 from app.core.db import Base, async_session_factory, engine
 from app.model.todo import Todo  # noqa: F401  pylint: disable=unused-import
+from app.router import todo_router
 
 
 @asynccontextmanager
@@ -36,6 +37,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 
 main_app = FastAPI(lifespan=lifespan)
+main_app.include_router(todo_router.router, prefix="")
 
 main_app.add_middleware(
     CORSMiddleware,
