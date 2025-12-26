@@ -4,9 +4,17 @@
 - FastAPI
 - PostGreSQL
 
+## 서버 띄우는 법:
+터미널에서 `uvicorn app.main:main_app --reload` 를 실행하세요
+
 ## 프론트에 붙여보기:
 서버를 띄운 후 [여기](https://www.todobackend.com/client/index.html?http://localhost:8000/todos) 를 클릭하여, UI를 동작해보세요
 `https://www.todobackend.com/` 에서 준비된 프론트입니다.
+
+## API 문서 확인 하기:
+서버를 띄운 후 아래로 로 접속 </br>
+-  [Swagger UI](http://localhost:8000/docs) 인터랙티브 문서(try it out 가능)!!
+-  [ReDoc](http://localhost:8000/redoc) 깔끔한 정적 문서 스타일
 
 ## 스펙 확인 하기:
 서버를 띄운 후 [여기](https://www.todobackend.com/specs/index.html?http://localhost:8000) 를 클릭해서 pass/fail을 확인해보세요. </br>
@@ -26,8 +34,3 @@
       at https://www.todobackend.com/specs/js/lib/q.js:557:44
   ```
 
-
-## API 문서 확인 하기:
-서버를 띄운 후 아래로 로 접속 </br>
--  [Swagger UI](http://localhost:8000/docs) 인터랙티브 문서(try it out 가능)!!
--  [ReDoc](http://localhost:8000/redoc) 깔끔한 정적 문서 스타일
