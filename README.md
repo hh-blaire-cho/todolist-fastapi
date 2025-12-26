@@ -4,11 +4,11 @@
 - FastAPI
 - PostGreSQL
 
-# 프론트에 붙여보기:
+## 프론트에 붙여보기:
 서버를 띄운 후 [여기](https://www.todobackend.com/client/index.html?http://localhost:8000/todos) 를 클릭하여, UI를 동작해보세요
 `https://www.todobackend.com/` 에서 준비된 프론트입니다.
 
-# 스펙 확인 하기:
+## 스펙 확인 하기:
 서버를 띄운 후 [여기](https://www.todobackend.com/specs/index.html?http://localhost:8000) 를 클릭해서 pass/fail을 확인해보세요. </br>
 - 또는 [여기](https://www.todobackend.com/specs/index.html)에 접속한 뒤 `http://localhost:8000/` 를 복사 붙여넣기기 해 넣고 돌려보세요.</br>
 - 브라우저 보안모드가 아니라면 아래 에러가 뜰 수 있으며 이는 백앤드잘못이 아닙니다.
@@ -27,5 +27,7 @@
   ```
 
 
-# API 문서 확인 하기:
-서버를 띄운 후 [여기](http://localhost:8000/docs) 로 접속 </br> 
+## API 문서 확인 하기:
+서버를 띄운 후 아래로 로 접속 </br>
+-  [Swagger UI](http://localhost:8000/docs) 인터랙티브 문서(try it out 가능)!!
+-  [ReDoc](http://localhost:8000/redoc) 깔끔한 정적 문서 스타일
