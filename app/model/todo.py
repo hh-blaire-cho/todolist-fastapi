@@ -12,5 +12,5 @@ class Todo(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     content: Mapped[str] = mapped_column(String(100), nullable=False)
-    priority: Mapped[str] = mapped_column(Integer, nullable=False)
-    completed: Mapped[str] = mapped_column(Boolean, nullable=False)
+    priority: Mapped[int] = mapped_column(Integer, nullable=False)
+    completed: Mapped[bool] = mapped_column(Boolean, nullable=False)
