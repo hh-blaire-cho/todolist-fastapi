@@ -21,3 +21,21 @@ class TodoRepository:
             await db.commit()
             return True  # 삭제 성공
         return False  # 삭제할 대상 없음
+
+    async def save(self, db: AsyncSession, entity: Todo) -> Todo:
+        db.add(entity)
+        await db.commit()
+        await db.refresh(entity)
+        return entity
+
+    async def find_by_id(
+        self,
+        db: AsyncSession,
+        todo_id: int,
+    ) -> Todo | None:
+        result = await db.execute(select(Todo).where(Todo.id == todo_id))
+        return result.scalar_one_or_none()
+
+    async def find_all(self, db) -> list[Todo]:
+        result = await db.execute(select(Todo).order_by(Todo.priority.asc()))
+        return result.scalars().all()
