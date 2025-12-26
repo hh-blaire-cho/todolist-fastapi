@@ -3,7 +3,7 @@ from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.model.todo import Todo
-from app.model.todo_dto import TodoCreateRequest, TodoResponse
+from app.model.todo_dto import TodoCreateRequest, TodoResponse, TodoUpdateRequest
 from app.repository.todo_repository import TodoRepository
 
 todo_repo = TodoRepository()
@@ -30,6 +30,23 @@ class TodoService:
                 completed=req.completed,
             ),
         )
+        return TodoResponse.from_entity(todo)
+
+    async def update_todo(
+        self, db: AsyncSession, todo_id: int, req: TodoUpdateRequest
+    ) -> TodoResponse:
+        todo = await todo_repo.find_by_id(db, todo_id)
+        if todo is None:
+            raise HTTPException(status_code=404, detail="Entity not found")
+        if req.title is not None:
+            todo.content = req.title
+        if req.completed is not None:
+            todo.completed = req.completed
+        if req.order is not None:
+            todo.priority = req.order
+        await todo_repo.save(
+            db, todo
+        )  # 자바의 JPA랑 달리 영속성이 없어서, 수정 후 명시적으로 저장해줘야 함.
         return TodoResponse.from_entity(todo)
 
     async def get_todo(self, db: AsyncSession, todo_id: int) -> TodoResponse:

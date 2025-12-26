@@ -1,4 +1,6 @@
 # app/model/todo_dto.py
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -6,6 +8,12 @@ class TodoCreateRequest(BaseModel):
     title: str
     order: int = 0
     completed: bool = False
+
+
+class TodoUpdateRequest(BaseModel):
+    title: Optional[str] = None
+    completed: Optional[bool] = None
+    order: Optional[int] = None
 
 
 class TodoResponse(BaseModel):
