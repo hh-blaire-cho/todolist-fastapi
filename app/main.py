@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from app.core.db import Base, async_session_factory, engine
@@ -35,3 +36,11 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 
 main_app = FastAPI(lifespan=lifespan)
+
+main_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 모든 도메인 허용
+    allow_credentials=True,
+    allow_methods=["*"],  # GET, POST, DELETE, PATCH 등 모두 허용
+    allow_headers=["*"],  # Content-Type 등 모든 헤더 허용
+)
