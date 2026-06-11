@@ -1,17 +1,17 @@
 # app/core/db.py
-import os
 from typing import AsyncGenerator
 
 import hvac  # type: ignore[import-untyped]
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
+from app.core.config import get_vault_settings
+
 
 def _load_database_url() -> str:
-    vault_addr = os.getenv("VAULT_ADDR", "http://localhost:8200")
-    vault_token = os.getenv("VAULT_TOKEN", "dev-token")
-
-    client = hvac.Client(url=vault_addr, token=vault_token)
+    config = get_vault_settings()
+    creds = config.get_vault_credentials()
+    client = hvac.Client(url=creds["vault_addr"], token=creds["vault_token"])
     secret = client.secrets.kv.v2.read_secret_version(path="todolistapp")
     return secret["data"]["data"]["database_url"]
 
