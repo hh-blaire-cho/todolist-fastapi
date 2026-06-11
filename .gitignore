@@ -8,4 +8,10 @@ venv
 .env.*rc
 .vscode/
 .idea/
-.DS_Store   
+.DS_Store
+
+# Terraform
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+.terraform.lock.hcl
