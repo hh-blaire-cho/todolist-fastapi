@@ -1,0 +1,34 @@
+name: Lint
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: black
+        run: black --check .
+
+      - name: isort
+        run: isort --profile=black --check .
+
+      - name: flake8
+        run: flake8 --max-line-length=120 --exclude=.penv,__pycache__
+
+      - name: mypy
+        run: mypy .
+
+      - name: pylint
+        run: pylint --disable=C0114,C0115,C0116,R0903 $(git ls-files '*.py')
