@@ -2,15 +2,21 @@
 import os
 from typing import AsyncGenerator
 
-from dotenv import load_dotenv
+import hvac  # type: ignore[import-untyped]
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
-load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL is not set")
+def _load_database_url() -> str:
+    vault_addr = os.getenv("VAULT_ADDR", "http://localhost:8200")
+    vault_token = os.getenv("VAULT_TOKEN", "dev-token")
+
+    client = hvac.Client(url=vault_addr, token=vault_token)
+    secret = client.secrets.kv.v2.read_secret_version(path="todolistapp")
+    return secret["data"]["data"]["database_url"]
+
+
+DATABASE_URL = _load_database_url()
 
 
 class Base(DeclarativeBase):
