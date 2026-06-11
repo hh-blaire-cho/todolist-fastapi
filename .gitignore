@@ -1,6 +1,8 @@
 **/*.pyc
 __pycache__/
 instance/
+venv
+.venv
 .todo
 .env
 .env.*rc
